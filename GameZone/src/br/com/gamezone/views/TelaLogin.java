@@ -2,6 +2,11 @@ package br.com.gamezone.views;
 
 import br.com.gamezone.dao.login.LoginDAO;
 import br.com.gamezone.model.Funcionario.FuncionarioModel;
+import br.com.gamezone.model.administrador.AdministradorModel;
+
+import br.com.gamezone.dao.Administrador.AdministradorDAO;
+
+
 import java.awt.HeadlessException;
 
 import java.sql.Connection;
@@ -49,6 +54,7 @@ public class TelaLogin extends javax.swing.JFrame {
         setBackground(new java.awt.Color(0, 0, 0));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setInheritsPopupMenu(true);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -88,6 +94,8 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
+        jpassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255)));
+
         btnmostrar.setText("Mostrar Senha");
         btnmostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +124,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(111, 111, 111)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +139,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(jpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnmostrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
@@ -145,9 +153,9 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(202, 202, 202)
+                .addContainerGap(257, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
+                .addGap(169, 169, 169)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(107, 107, 107))
         );
@@ -156,12 +164,12 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(113, 113, 113)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(406, 406, 406)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(123, 123, 123)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(405, 405, 405)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -238,12 +246,24 @@ public class TelaLogin extends javax.swing.JFrame {
             if (usuario.isEmpty() && senha.equals(senha)) {
                 JOptionPane.showMessageDialog(null, "preencha todos os campos");
             } else {
+             
                 FuncionarioModel funcionarioModel = new FuncionarioModel();
                 funcionarioModel.setUsuario(usuario);
                 funcionarioModel.setSenha(senhaa);
-
-                LoginDAO loginDAO = new LoginDAO();
-                ResultSet resultado = loginDAO.loginFuncionario(funcionarioModel);
+                
+                
+                AdministradorModel administradorModel = new AdministradorModel();
+                administradorModel.setUsuario(usuario);
+                administradorModel.setSenha(senhaa);
+                
+                
+                
+                
+                
+                
+                AdministradorDAO administradorDAO = new AdministradorDAO();
+                
+                ResultSet resultado = administradorDAO.loginAdministrador(administradorModel);
 
                 if (resultado.next()) {
                     TelaPrincipal principal = new TelaPrincipal();
@@ -266,10 +286,10 @@ public class TelaLogin extends javax.swing.JFrame {
     public void MostrarEsconderSenha() {
 
         if (btnmostrar.getText().equals("Mostrar Senha")) {
-            jpassword.setEchoChar((char) 0); // Mostrar senha (remover o caractere de eco)
+            jpassword.setEchoChar((char) 0); 
             btnmostrar.setText("Ocultar Senha");
         } else {
-            jpassword.setEchoChar('*'); // Ocultar senha (definir caractere de eco como '*')
+            jpassword.setEchoChar('*'); 
             btnmostrar.setText("Mostrar Senha");
         }
     }

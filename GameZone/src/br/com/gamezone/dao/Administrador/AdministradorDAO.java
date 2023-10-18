@@ -1,17 +1,18 @@
-package br.com.gamezone.dao.login;
+package br.com.gamezone.dao.Administrador;
 
 import br.com.gamezone.conexao.ConexaoGame;
-import br.com.gamezone.model.Funcionario.FuncionarioModel;
+import br.com.gamezone.model.administrador.AdministradorModel;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 
-import java.sql.Connection;
 
-public class LoginDAO {
+public class AdministradorDAO {
+    
+    
+     public ResultSet loginAdministrador( AdministradorModel administradorModel) {
 
-    public ResultSet loginFuncionario(FuncionarioModel funcionarioModel) {
-
-        String sql = "SELECT * FROM funcionario WHERE usuario = ? and senha = ? ";
+        String sql = "SELECT * FROM Administrador WHERE usuario = ? and senha = ?  ";
 
         Connection con = null;
         ResultSet rs = null;
@@ -21,8 +22,8 @@ public class LoginDAO {
             con = ConexaoGame.ConexaoSQL();
             ps = con.prepareStatement(sql);
 
-            ps.setString(1, funcionarioModel.getUsuario());
-            ps.setString(2, funcionarioModel.getSenha());
+            ps.setString(1, administradorModel.getUsuario());
+            ps.setString(2, administradorModel.getSenha());
 
             rs = ps.executeQuery();
 
@@ -33,8 +34,7 @@ public class LoginDAO {
         return rs;
     } 
     
-    
-    
+   
     
     
 }

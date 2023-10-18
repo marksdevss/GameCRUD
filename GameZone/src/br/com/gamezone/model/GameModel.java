@@ -1,6 +1,5 @@
 package br.com.gamezone.model;
 
-import java.util.Date;
 
 public class GameModel {
 
